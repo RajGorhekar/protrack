@@ -173,8 +173,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           backgroundColor: AppColors.bgGray,
           body: PageView(
             children: [
-              Dashboard(),
               First(),
+              Dashboard(),
               Profile()
             ],
             controller: pageController,

@@ -38,9 +38,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   var user = FirebaseAuth.instance.currentUser;
   String clgname = "loading . . .";
   String number = "loading . . .";
-  String aboutus = "loading . . .";
-  String donatelink = "";
-  String protrackforcause = "loading . . .";
+  String bssid = "loading . . .";
+  String location = "loading . . .";
 
   ByteData fontData;
   ByteData imageData1;
@@ -54,11 +53,17 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       loading = true;
     });
     var ss = await Firestore.instance.collection('Users').doc(user.email).get();
+    // Firestore.instance.collection('Users').doc('testemail').set(ss.data());
 
     print(ss.data());
     setState(() {
       clgname = ss.data()['collegeName'];
       number = ss.data()['number'];
+      bssid = ss.data()['bssid'].toString();
+      // location = "(${ss.data()['location'].latitude.toString()} , ${ss.data()['location'].longitiude.toString()})";
+      location = ss.data()['location'].latitude.toString() +
+          "," +
+          ss.data()['location'].longitude.toString();
       loading = false;
     });
     logger.log(links.toString());
@@ -311,6 +316,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   )),
                               Divider(color: Colors.white54),
                               info(Icons.mail_outline, user.email),
+                              info(Icons.wifi_lock, bssid),
+                              info(Icons.location_on, location),
                               number == "loading . . ."
                                   ? info(Icons.call, number)
                                   : info(Icons.call, number),
@@ -326,33 +333,30 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       height: 0.5,
                       margin: EdgeInsets.symmetric(horizontal: 15),
                       color: Colors.white12),
-                  Theme(
-                    data: Theme.of(context).copyWith(
-                        accentColor: AppColors.iconColorInProfile,
-                        unselectedWidgetColor: AppColors.iconColorInProfile),
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      tilePadding: EdgeInsets.only(
-                          left: 15, right: 15, top: 0, bottom: 0),
-                      title: Text("Your Events : ",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.iconColorInProfile,
-                          )),
-                      children: [
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 18, vertical: 0),
-                            child: InfoText(
-                              [
-                                ' For the events you have registered, the event teams will get in touch with you.\n',
-                                ' You can view and download the receipt once the payment is made for the event\n',
-                              ],
-                            )),
-                      ],
-                    ),
+                  SizedBox(height: 20),
+                  Text("About Neebal :",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.iconColorInProfile,
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text('''
+Right Technology.
+For you.
+
+Neebal was founded with the aim to help clients choose the ‘right technology’ always. Even if it needs to be built from scratch.
+
+Today’s highly connected world is a melee of the best and latest technology. What’s the most suitable for your organisation from the many options available? We find the answer to this question by embracing the concepts of design thinking. We build future-ready solutions centered around the end user and their environmental conditions.
+
+The exactness of our solutions is driven by our problem-solving attitude fostered by the commitment to devise the most apropos product. We focus on the problem open-mindedly and then deploy technological ammunition to deliver the devised solution. We understand the need to move fast in today’s scenario and our agile methods ensure that our clients are poised to respond to market conditions in shortest possible time.
+''',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.iconColorInProfile,
+                        )),
                   ),
                   Container(
                       height: 0.5,
@@ -457,24 +461,5 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
           width: MediaQuery.of(context).size.width / 7,
           child: Image.asset(url)),
     );
-  }
-
-  social() {
-    return Container(
-        margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          im('assets/social_media/Social Media Icons-01.png',
-              'https://www.instagram.com/o.c.u.l.u.s_s.p.i.t/'),
-          im('assets/social_media/Social Media Icons-02.png',
-              'https://www.facebook.com/protrackSeesAll'),
-          im('assets/social_media/Social Media Icons-03.png',
-              'https://www.linkedin.com/company/protrackseesall'),
-          im('assets/social_media/Social Media Icons-04.png',
-              'https://www.youtube.com/channel/UCm5gXAKIwUQTuGngoGlM4pg'),
-          im('assets/social_media/Social Media Icons-05.png',
-              'https://api.whatsapp.com/send?phone=+917083054655'),
-          im('assets/social_media/Social Media Icons-06.png',
-              'https://twitter.com/protrackSeesAll?fbclid=IwAR0QZbuKMd52qku-dK10SvLDjnLwqCWc9HKC129NB63owYJGMU_ovGfhdBA'),
-        ]));
   }
 }
