@@ -2,18 +2,22 @@ import datetime
 import json
 from dateutil import parser
 
-
 class AcitivyList:
     def __init__(self, activities):
         self.activities = activities
     
-    def initialize_me(self):
+    def initialize_me(self,db):
         activity_list = AcitivyList([])
-        with open('activities.json', 'r') as f:
-            data = json.load(f)
+        doc_ref = db.collection(u'jyotigorherkar@gmail.com').document(u'activity')
+        curr_date = str(datetime.datetime.now().date())
+        doc = doc_ref.get()
+        if(doc.exists):
+            data = doc.to_dict()["Date"]
             activity_list = AcitivyList(
-                activities = self.get_activities_from_json(data)
+                activities = self.get_activities_from_json(data[curr_date])
             )
+            print(activity_list.activities)
+
         return activity_list
     
     def get_activities_from_json(self, data):

@@ -5,6 +5,18 @@ from activity import *
 import json
 import datetime
 import sys
+
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+# Use the application default credentials
+cred = credentials.Certificate("cred.json")
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
+
+
 if sys.platform in ['Windows', 'win32', 'cygwin']:
     import win32gui
     import uiautomation as auto
@@ -60,7 +72,7 @@ def get_chrome_url():
     return _active_window_name
 
 try:
-    activeList.initialize_me()
+    activeList.initialize_me(db)
 except Exception:
     print('No json')
 
@@ -86,25 +98,36 @@ try:
                 end_time = datetime.datetime.now()
                 time_entry = TimeEntry(start_time, end_time, 0, 0, 0, 0)
                 time_entry._get_specific_times()
-
+                doc_ref = db.collection(u'jyotigorherkar@gmail.com').document(u'activity')
+                curr_date = str(datetime.datetime.now().date())
                 exists = False
                 for activity in activeList.activities:
                     if activity.name == activity_name:
                         exists = True
                         activity.time_entries.append(time_entry)
-
                 if not exists:
                     activity = Activity(activity_name, [time_entry])
                     activeList.activities.append(activity)
-                with open('activities.json', 'w') as json_file:
-                    json.dump(activeList.serialize(), json_file,
-                              indent=4, sort_keys=True)
-                    start_time = datetime.datetime.now()
+
+                doc = doc_ref.get()
+                if(doc.exists):
+                    data = doc.to_dict()["Date"]
+                    data[curr_date] = activeList.serialize()
+                    doc_ref.update({
+                        u'Date': data
+                    })
+                
             first_time = False
             active_window_name = new_window_name
 
         time.sleep(1)
     
 except KeyboardInterrupt:
-    with open('activities.json', 'w') as json_file:
-        json.dump(activeList.serialize(), json_file, indent=4, sort_keys=True)
+    doc_ref = db.collection(u'jyotigorherkar@gmail.com').document(u'activity')
+    curr_date = str(datetime.datetime.now().date())
+    if(doc.exists):
+        data = doc.to_dict()["Date"]
+        data[curr_date] = activeList.serialize()
+        doc_ref.update({
+            u'Date': data
+        })
