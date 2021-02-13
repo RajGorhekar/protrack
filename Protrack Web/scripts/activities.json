@@ -1,0 +1,72 @@
+{
+    "activities": [
+        {
+            "name": "Visual Studio Code",
+            "time_entries": [
+                {
+                    "days": 0,
+                    "end_time": "2021-02-13 11:53:18",
+                    "hours": 0,
+                    "minutes": 0,
+                    "seconds": 11,
+                    "start_time": "2021-02-13 11:53:07"
+                },
+                {
+                    "days": 0,
+                    "end_time": "2021-02-13 11:53:24",
+                    "hours": 0,
+                    "minutes": 0,
+                    "seconds": 4,
+                    "start_time": "2021-02-13 11:53:19"
+                },
+                {
+                    "days": 0,
+                    "end_time": "2021-02-13 11:53:59",
+                    "hours": 0,
+                    "minutes": 0,
+                    "seconds": 24,
+                    "start_time": "2021-02-13 11:53:35"
+                }
+            ]
+        },
+        {
+            "name": "",
+            "time_entries": [
+                {
+                    "days": 0,
+                    "end_time": "2021-02-13 11:53:19",
+                    "hours": 0,
+                    "minutes": 0,
+                    "seconds": 1,
+                    "start_time": "2021-02-13 11:53:18"
+                }
+            ]
+        },
+        {
+            "name": "timgolden.me.uk",
+            "time_entries": [
+                {
+                    "days": 0,
+                    "end_time": "2021-02-13 11:53:35",
+                    "hours": 0,
+                    "minutes": 0,
+                    "seconds": 10,
+                    "start_time": "2021-02-13 11:53:24"
+                }
+            ]
+        },
+        {
+            "name": "Discord",
+            "time_entries": [
+                {
+                    "days": 0,
+                    "end_time": "2021-02-13 11:54:17",
+                    "hours": 0,
+                    "minutes": 0,
+                    "seconds": 18,
+                    "start_time": "2021-02-13 11:53:59"
+                }
+            ]
+        }
+    ]
+}
