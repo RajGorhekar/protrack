@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "791127523502",
+    "project_id": "spit-hack-21",
+    "storage_bucket": "spit-hack-21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791127523502:android:1f4c5f4d099dd384bced3f",
+        "android_client_info": {
+          "package_name": "com.example.protrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791127523502-i5op9287re0kj19qf4832eudra6qlgra.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.protrack",
+            "certificate_hash": "753e5d34732a50534519b5ee5c0dccb7a251f7b9"
+          }
+        },
+        {
+          "client_id": "791127523502-2u9jsijeubf2j39mmhed21rq28ibe7f5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgp1IzfJ4nxFwtd1OeW0zAYTQZqnhOePs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791127523502-2u9jsijeubf2j39mmhed21rq28ibe7f5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -39,6 +39,9 @@ dependencies:
   firebase_database: ^4.4.0
   # firebase_cloud_messaging: ^4.0.4+1  
   google_sign_in: ^4.5.6
+  liquid_swipe: ^1.5.0
+  lottie: ^0.7.0+1
+  carousel_slider: ^2.3.1
 
   fluttertoast: null
   font_awesome_flutter: null
@@ -73,6 +76,9 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
