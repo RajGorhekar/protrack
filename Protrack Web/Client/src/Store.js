@@ -60,7 +60,7 @@ const reducer = (state = oldState, action) => {
             minutes +=
               timeEntry.hours * 60 + timeEntry.minutes + timeEntry.seconds / 60;
           });
-          time_map_productive.push(Math.floor(minutes));
+          time_map_productive.push(Math.ceil(minutes));
           // console.log(labels_productive, time_map_productive);
         } else if (blackList.includes(element.name)) {
           let minutes = 0;
@@ -69,7 +69,7 @@ const reducer = (state = oldState, action) => {
             minutes +=
               timeEntry.hours * 60 + timeEntry.minutes + timeEntry.seconds / 60;
           });
-          time_map_unproductive.push(Math.floor(minutes));
+          time_map_unproductive.push(Math.ceil(minutes));
           // console.log(labels_unproductive, time_map_unproductive);
         }
       });
