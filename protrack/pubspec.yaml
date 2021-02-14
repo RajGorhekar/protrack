@@ -38,6 +38,12 @@ dependencies:
   firebase_core: ^0.5.3
   firebase_database: ^4.4.0
   # firebase_cloud_messaging: ^4.0.4+1  
+  connectivity_plus: ^0.8.0
+  geolocator: ^6.2.0
+
+  wifi_info_flutter: ^1.0.4
+  charts_flutter: ^0.9.0
+
   google_sign_in: ^4.5.6
   liquid_swipe: ^1.5.0
   lottie: ^0.7.0+1
@@ -45,6 +51,7 @@ dependencies:
 
   fluttertoast: null
   font_awesome_flutter: null
+  app_usage: ^1.2.0
 
   video_player: ^1.0.1
   chewie: ^0.12.0

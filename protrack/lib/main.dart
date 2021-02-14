@@ -94,33 +94,9 @@ class _SplashState extends State<Splash> {
         } else {
           registered = true;
         }
-        print("logged getAuthDetails : " + logged.toString());
-        print("registered getAuthDetails : " + registered.toString());
       });
       if (logged) {
-        if (!registered) {
-          print("khushi");
-          var query = await FirebaseFirestore.instance
-              .collection("Users")
-              .doc(loggedUser);
-
-          query.get().then((value) {
-            if (value.exists) {
-              print("Already registered");
-
-              navigateToHome(auth.currentUser, decider: 1);
-            } else {
-              print("not registered");
-              sharedPreferences.setBool("registered", false);
-              setState(() {
-                registered = false;
-              });
-              takeDetails(auth.currentUser);
-            }
-          });
-        } else {
-          navigateToHome(auth.currentUser, decider: 0);
-        }
+        navigateToHome(auth.currentUser, decider: 0);
       }
     } catch (e) {
       print(e);
@@ -128,7 +104,6 @@ class _SplashState extends State<Splash> {
   }
 
   navigateToHome(currentUser, {int decider = 0}) {
-    print("decider : " + decider.toString());
     Navigator.of(context).pushAndRemoveUntil(
       PageRouteBuilder(
           pageBuilder: (context, animation, anotherAnimation) {
@@ -154,7 +129,6 @@ class _SplashState extends State<Splash> {
       loading = true;
     });
     Map events = {};
-    print(currentUser.displayName);
     await FirebaseFirestore.instance
         .collection('Users')
         .doc(currentUser.email)
@@ -190,213 +164,19 @@ class _SplashState extends State<Splash> {
     branch = TextEditingController();
     number = TextEditingController();
     collegeName = TextEditingController();
-
   }
 
-
   Future takeDetails(currentUser) {
-    return showModalBottomSheet(
-        context: context,
-        elevation: 12,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (BuildContext bc) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: Center(
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  margin: EdgeInsets.all(15.0),
-                  padding: EdgeInsets.fromLTRB(18, 0, 18, 0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Center(
-                                child: Container(
-                              height: 2,
-                              width: 50,
-                              color: Colors.black,
-                              margin: EdgeInsets.only(top: 20),
-                            )),
-                          ),
-                          Expanded(
-                            child: ListView(
-                              children: <Widget>[
-                                ListTile(
-                                  leading: Image.asset(
-                                      'assets/images/protrack Logo Icon Blue.jpg'),
-                                  title: Text(
-                                    "Enter your details",
-                                  ),
-                                ),
-                                Divider(
-                                  color: Colors.black,
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(left: 10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                  child: TextField(
-                                    minLines: 1,
-                                    maxLines: 2,
-                                    controller: collegeName,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "College name",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey)),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(left: 10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                  child: TextField(
-                                    minLines: 1,
-                                    maxLines: 1,
-                                    controller: number,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Mobile Number",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey)),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                    padding: EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 5,
-                                          height: 5,
-                                        ),
-                                        Spacer(),
-                                        Material(
-                                            // color: Color(0xff00538a),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)),
-                                            child: InkWell(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10)),
-                                                onTap: () {
-                                                  String patttern =
-                                                      r'(^(?:[+0]9)?[0-9]{10}$)';
-                                                  RegExp regExp =
-                                                      new RegExp(patttern);
-                                                  if (number.text.length == 0) {
-                                                    Fluttertoast.showToast(
-                                                        msg:
-                                                            'Please enter mobile number',
-                                                        toastLength:
-                                                            Toast.LENGTH_LONG);
-                                                  } else if (collegeName
-                                                          .text.length ==
-                                                      0) {
-                                                    Fluttertoast.showToast(
-                                                        msg:
-                                                            'Please enter College Name',
-                                                        toastLength:
-                                                            Toast.LENGTH_LONG);
-                                                  } else if (!regExp
-                                                      .hasMatch(number.text)) {
-                                                    Fluttertoast.showToast(
-                                                        msg:
-                                                            'Mobile number can have only 10 digits',
-                                                        toastLength:
-                                                            Toast.LENGTH_SHORT);
-                                                  } else {
-                                                    addUser(currentUser);
-                                                  }
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    // gradient: LinearGradient(
-                                                    //     colors: [Color(0xff00538a), Color(0xff3bceff)],
-                                                    //     begin: Alignment.centerLeft,
-                                                    //     end: Alignment.centerRight),
-                                                    color: Color(0xff00538a),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                          color: Colors.black45,
-                                                          offset: Offset(3, 5),
-                                                          blurRadius: 6.0,
-                                                          spreadRadius: -2),
-                                                    ],
-                                                  ),
-                                                  width: 100,
-                                                  height: 45,
-                                                  child: Center(
-                                                      child: Text("Submit",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold))),
-                                                )))
-                                      ],
-                                    ))
-                              ],
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              await signOutGoogle(context);
-                              initState();
-                            },
-                            child: Container(
-                              child: Text(
-                                'Use another Email ?\n\n',
-                                style: TextStyle(
-                                  color: Color(0xff00538a),
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-            );
-          });
-        });
+    navigateToHome(currentUser, decider: 1);
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    print("Build : " + registered.toString());
-    // if (registered) {
-    //   navigateToHome(details[0]);
-    // } else {
+    if (registered) {
+      navigateToHome(0);
+    }
+    // else {
     //   takeDetails(details[0]);
     // }
 
@@ -438,45 +218,41 @@ class _SplashState extends State<Splash> {
                                     ([List details]) async {
                                       SharedPreferences sharedPreferences =
                                           await SharedPreferences.getInstance();
-                                      if (details[1]) {
-                                        print("new user");
-                                        setState(() {
-                                          loggedUser = details[0].email;
-                                          logged = true;
-                                        });
-                                        takeDetails(details[0]);
-                                      } else {
-                                        print("not a new user");
-                                        var query = await FirebaseFirestore
-                                            .instance
-                                            .collection("Users")
-                                            .doc(details[0].email);
+                                      // if (details[1]) {
+                                      //   print("new user");
+                                      //   setState(() {
+                                      //     loggedUser = details[0].email;
+                                      //     logged = true;
+                                      //   });
+                                      //   takeDetails(details[0]);
+                                      // } else {
+                                      //   print("not a new user");
+                                      //   var query = await FirebaseFirestore
+                                      //       .instance
+                                      //       .collection("Users")
+                                      //       .doc(details[0].email);
 
-                                        query.get().then((value) {
-                                          if (value.exists) {
-                                            print("Already registered");
-                                            sharedPreferences.setBool(
-                                                "registered", true);
-                                            navigateToHome(details[0],
-                                                decider: 1);
-                                          } else {
-                                            print("not registered");
-                                            setState(() {
-                                              registered = false;
-                                              logged = true;
-                                            });
-                                            takeDetails(details[0]);
-                                          }
-                                        });
-                                      }
+                                      //   query.get().then((value) {
+                                      //     if (value.exists) {
+                                      //       print("Already registered");
+                                      //       sharedPreferences.setBool(
+                                      //           "registered", true);
+                                      //       navigateToHome(details[0],
+                                      //           decider: 1);
+                                      //     } else {
+                                      //       print("not registered");
+                                      //       setState(() {
+                                      //         registered = false;
+                                      //         logged = true;
+                                      //       });
+                                      //       takeDetails(details[0]);
+                                      //     }
+                                      //   });
+                                      // }
+                                      navigateToHome(details[0], decider: 1);
                                     },
                                   ).catchError((e) {
-                                    print('object');
                                     print(e.toString());
-                                    // Fluttertoast.showToast(
-                                    //     msg: e.toString(),
-                                    //     timeInSecForIosWeb: 10);
-                                    print('object');
                                   });
                                   setState(() {
                                     loading = false;
