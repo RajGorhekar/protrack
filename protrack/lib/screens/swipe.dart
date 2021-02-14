@@ -185,7 +185,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: 100,
+              height: 400,
               width: width,
               child: Image.asset(
                 'assets/images/808.gif',
@@ -228,7 +228,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
               height: 400,
               width: width,
               child: Image.asset(
-                'assets/images/Event Images_1-04.png',
+                'assets/images/Event Images_1-02.png',
                 fit: BoxFit.cover,
               ),
             ),
