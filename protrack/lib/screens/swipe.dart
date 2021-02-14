@@ -103,7 +103,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 Expanded(child: SizedBox()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List<Widget>.generate(5, _buildDot),
+                  children: List<Widget>.generate(3, _buildDot),
                 ),
               ],
             ),
@@ -149,9 +149,12 @@ class _SwipeScreenState extends State<SwipeScreen> {
               ),
             ),
             SizedBox(height: 30),
-            Text(
-              "Cultural",
-              style: SwipeScreen.style,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "Our product will help you track the attendance keeping in mind the geo fence as well as Wifi address.",
+                style: SwipeScreen.style,
+              ),
             )
           ],
         ),
@@ -182,55 +185,20 @@ class _SwipeScreenState extends State<SwipeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: 400,
+              height: 100,
               width: width,
               child: Image.asset(
-                'assets/images/Event Images_1-02.png',
+                'assets/images/808.gif',
                 fit: BoxFit.cover,
               ),
             ),
             SizedBox(height: 30),
-            Text(
-              "Technical",
-              style: SwipeScreen.style,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget fun() {
-    return InkWell(
-      onTap: () {
-        print("Fun");
-        navigate("Fun");
-      },
-      child: Container(
-        width: width,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xff3700AF), Color(0xff00CDEF)],
-        )),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          //mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: 400,
-              width: width,
-              child: Image.asset(
-                'assets/images/Event Images_1-03.png',
-                fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "Our Dashboard will showcase the employee how productive he/she  is and will be able to track his/her activities.",
+                style: SwipeScreen.style,
               ),
-            ),
-            SizedBox(height: 30),
-            Text(
-              "Fun",
-              style: SwipeScreen.style,
             )
           ],
         ),
@@ -265,9 +233,12 @@ class _SwipeScreenState extends State<SwipeScreen> {
               ),
             ),
             SizedBox(height: 30),
-            Text(
-              "Pronite",
-              style: SwipeScreen.style,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "The system will make it easy for the employees by sorting out the whitelisted and blacklisted websites.",
+                style: SwipeScreen.style,
+              ),
             )
           ],
         ),
@@ -275,46 +246,4 @@ class _SwipeScreenState extends State<SwipeScreen> {
     );
   }
 
-  Widget Pre_Event() {
-    return InkWell(
-      onTap: () {
-        print("Pre Event");
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Home(
-                      category: "Pre Event",
-                    )),
-            (route) => false);
-      },
-      child: Container(
-        width: width,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xffED00CC), Color(0xff3700AF)],
-        )),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: 400,
-              width: width,
-              child: Image.asset(
-                'assets/images/Event Images_1-05.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(height: 30),
-            Text(
-              "Pre Event",
-              style: SwipeScreen.style,
-            )
-          ],
-        ),
-      ),
-    );
-  }
 }
