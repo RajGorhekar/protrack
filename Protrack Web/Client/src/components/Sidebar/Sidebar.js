@@ -4,10 +4,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { Nav, NavLink as ReactstrapNavLink } from 'reactstrap';
-import {
-  BackgroundColorContext,
-  backgroundColors,
-} from 'contexts/BackgroundColorContext';
+import { BackgroundColorContext } from 'contexts/BackgroundColorContext';
 
 var ps;
 
@@ -105,7 +102,7 @@ function Sidebar(props) {
                       onClick={props.toggleSidebar}
                     >
                       <i className={prop.icon} />
-                      <p>{rtlActive ? prop.rtlName : prop.name}</p>
+                      <p>{prop.name}</p>
                     </NavLink>
                   </li>
                 );

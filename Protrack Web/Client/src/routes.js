@@ -12,7 +12,7 @@ var routes = [
   },
   {
     path: '/notifications',
-    name: 'Notifications',
+    name: 'Tasks',
     icon: 'tim-icons icon-bell-55',
     component: Notifications,
     layout: '/admin',

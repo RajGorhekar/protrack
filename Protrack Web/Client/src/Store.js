@@ -2,6 +2,8 @@ var redux = require('redux');
 var oldState = {
   productiveData: {},
   unProductiveData: {},
+  email: 'jyotigorherkar@gmail.com',
+  task: [],
 };
 
 let whiteList = [
@@ -84,6 +86,12 @@ const reducer = (state = oldState, action) => {
           time_map: time_map_unproductive,
         },
         loading: false,
+      };
+    case 'SET_EMAIL':
+      console.log(payload);
+      return {
+        ...state,
+        email: payload,
       };
     default:
       return state;

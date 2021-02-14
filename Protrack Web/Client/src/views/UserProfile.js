@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Card,
@@ -12,8 +12,12 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import store from '../Store';
+import { connect } from 'react-redux';
 
-function UserProfile() {
+function UserProfile(props) {
+  console.log(store.getState().email);
+  const [email, setEmail] = useState(store.getState().email);
   return (
     <>
       <div className='content'>
@@ -24,14 +28,22 @@ function UserProfile() {
                 <h5 className='title'>Edit Profile</h5>
               </CardHeader>
               <CardBody>
-                <Form>
+                <Form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    console.log('object');
+                    props.dispatch({
+                      type: 'SET_EMAIL',
+                      payload: email,
+                    });
+                  }}
+                >
                   <Row>
                     <Col className='pr-md-1' md='5'>
                       <FormGroup>
-                        <label>Company (disabled)</label>
+                        <label>Company</label>
                         <Input
-                          defaultValue='Creative Code Inc.'
-                          disabled
+                          defaultValue='Company Name'
                           placeholder='Company'
                           type='text'
                         />
@@ -40,11 +52,7 @@ function UserProfile() {
                     <Col className='px-md-1' md='3'>
                       <FormGroup>
                         <label>Username</label>
-                        <Input
-                          defaultValue='michael23'
-                          placeholder='Username'
-                          type='text'
-                        />
+                        <Input placeholder='Username' type='text' />
                       </FormGroup>
                     </Col>
                     <Col className='pl-md-1' md='4'>
@@ -52,7 +60,12 @@ function UserProfile() {
                         <label htmlFor='exampleInputEmail1'>
                           Email address
                         </label>
-                        <Input placeholder='mike@email.com' type='email' />
+                        <Input
+                          id='email'
+                          value={email}
+                          type='text'
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -60,21 +73,13 @@ function UserProfile() {
                     <Col className='pr-md-1' md='6'>
                       <FormGroup>
                         <label>First Name</label>
-                        <Input
-                          defaultValue='Mike'
-                          placeholder='Company'
-                          type='text'
-                        />
+                        <Input placeholder='Company' type='text' />
                       </FormGroup>
                     </Col>
                     <Col className='pl-md-1' md='6'>
                       <FormGroup>
                         <label>Last Name</label>
-                        <Input
-                          defaultValue='Andrew'
-                          placeholder='Last Name'
-                          type='text'
-                        />
+                        <Input placeholder='Last Name' type='text' />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -133,13 +138,12 @@ function UserProfile() {
                       </FormGroup>
                     </Col>
                   </Row>
+                  <Button className='btn-fill' color='primary' type='submit'>
+                    Save
+                  </Button>
                 </Form>
               </CardBody>
-              <CardFooter>
-                <Button className='btn-fill' color='primary' type='submit'>
-                  Save
-                </Button>
-              </CardFooter>
+              <CardFooter></CardFooter>
             </Card>
           </Col>
           <Col md='4'>
@@ -188,4 +192,9 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    email: state.email,
+  };
+};
+export default connect(mapStateToProps)(UserProfile);
