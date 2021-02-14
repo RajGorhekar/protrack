@@ -96,25 +96,7 @@ class _SplashState extends State<Splash> {
         }
       });
       if (logged) {
-        if (!registered) {
-          var query = await FirebaseFirestore.instance
-              .collection("Users")
-              .doc(loggedUser);
-
-          query.get().then((value) {
-            if (value.exists) {
-              navigateToHome(auth.currentUser, decider: 1);
-            } else {
-              sharedPreferences.setBool("registered", false);
-              setState(() {
-                registered = false;
-              });
-              takeDetails(auth.currentUser);
-            }
-          });
-        } else {
-          navigateToHome(auth.currentUser, decider: 0);
-        }
+        navigateToHome(auth.currentUser, decider: 0);
       }
     } catch (e) {
       print(e);
@@ -191,9 +173,10 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    // if (registered) {
-    //   navigateToHome(details[0]);
-    // } else {
+    if (registered) {
+      navigateToHome(0);
+    }
+    // else {
     //   takeDetails(details[0]);
     // }
 

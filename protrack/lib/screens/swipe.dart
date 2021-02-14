@@ -94,8 +94,6 @@ class _SwipeScreenState extends State<SwipeScreen> {
               cultural(),
               technical(),
               pronite(),
-              fun(),
-              Pre_Event()
             ],
           ),
           Padding(
