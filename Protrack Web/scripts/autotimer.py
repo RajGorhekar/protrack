@@ -15,7 +15,7 @@ cred = credentials.Certificate("cred.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-
+email='abc@gmail.com'
 
 if sys.platform in ['Windows', 'win32', 'cygwin']:
     import win32gui
@@ -72,7 +72,7 @@ def get_chrome_url():
     return _active_window_name
 
 try:
-    activeList.initialize_me(db)
+    activeList.initialize_me(db,email)
 except Exception:
     print('No json')
 
@@ -98,7 +98,7 @@ try:
                 end_time = datetime.datetime.now()
                 time_entry = TimeEntry(start_time, end_time, 0, 0, 0, 0)
                 time_entry._get_specific_times()
-                doc_ref = db.collection(u'jyotigorherkar@gmail.com').document(u'activity')
+                doc_ref = db.collection(email).document(u'activity')  
                 curr_date = str(datetime.datetime.now().date())
                 exists = False
                 for activity in activeList.activities:
@@ -116,14 +116,19 @@ try:
                     doc_ref.update({
                         u'Date': data
                     })
-                
+                else:
+                    db.collection(u'abc.com').document(u'activity').set({
+                        u'Date': {
+                            curr_date: activeList.serialize()
+                        }
+                    })  
             first_time = False
             active_window_name = new_window_name
 
         time.sleep(1)
     
 except KeyboardInterrupt:
-    doc_ref = db.collection(u'jyotigorherkar@gmail.com').document(u'activity')
+    doc_ref = db.collection(email).document(u'activity')
     curr_date = str(datetime.datetime.now().date())
     if(doc.exists):
         data = doc.to_dict()["Date"]

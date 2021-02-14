@@ -8,6 +8,7 @@ import routes from 'routes.js';
 import { BackgroundColorContext } from 'contexts/BackgroundColorContext';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
+import store from '../../Store';
 
 var ps;
 
@@ -77,8 +78,10 @@ function Admin(props) {
     return [year, month, day].join('-');
   }
 
+  // console.log(store.getState().email);
+
   React.useEffect(() => {
-    db.collection('jyotigorherkar@gmail.com')
+    db.collection(store.getState().email)
       .doc('activity')
       .get()
       .then((doc) => {
@@ -92,9 +95,8 @@ function Admin(props) {
           type: 'GET_DATA',
           payload: { data },
         });
-        console.log(data);
       });
-  }, []);
+  }, [store.getState().email]);
 
   const toggleSidebar = () => {
     document.documentElement.classList.toggle('nav-open');
@@ -143,7 +145,7 @@ function Admin(props) {
               {location.pathname === '/admin/maps'}
             </div>
           </div>
-          <FixedPlugin bgColor={color} handleBgClick={changeColor} />
+          {/* <FixedPlugin bgColor={color} handleBgClick={changeColor} /> */}
         </React.Fragment>
       )}
     </BackgroundColorContext.Consumer>

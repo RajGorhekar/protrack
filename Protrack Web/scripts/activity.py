@@ -6,9 +6,9 @@ class AcitivyList:
     def __init__(self, activities):
         self.activities = activities
     
-    def initialize_me(self,db):
+    def initialize_me(self,db,email):
         activity_list = AcitivyList([])
-        doc_ref = db.collection(u'jyotigorherkar@gmail.com').document(u'activity')
+        doc_ref = db.collection(email).document(u'activity')
         curr_date = str(datetime.datetime.now().date())
         doc = doc_ref.get()
         if(doc.exists):

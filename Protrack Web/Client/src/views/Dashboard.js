@@ -1,13 +1,9 @@
 import React from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from 'reactstrap';
 import { chartExample1, chartExample2 } from 'variables/charts.js';
 
 function Dashboard(props) {
-  const [bigChartData, setbigChartData] = React.useState('data1');
-  const setBgChartData = (name) => {
-    setbigChartData(name);
-  };
   return (
     <div className='content'>
       <Row>
@@ -26,7 +22,7 @@ function Dashboard(props) {
             <CardBody>
               <div className='chart-area'>
                 <Line
-                  data={chartExample1[bigChartData]}
+                  data={chartExample1.data1}
                   options={chartExample1.options}
                 />
               </div>
@@ -38,7 +34,6 @@ function Dashboard(props) {
         <Col lg='12'>
           <Card className='card-chart'>
             <CardHeader>
-              <h5 className='card-category'></h5>
               <CardTitle tag='h3'>
                 <i className='tim-icons icon-bell-55 text-info' /> Non
                 Productive App Time Usage
